@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { SignedIn, SignedOut } from "@clerk/clerk-react";
+import {Toaster} from 'react-hot-toast'
 
-function App() {
-  const [count, setCount] = useState(0)
+// Pages
+import Login from "./pages/Login";
+import Feed from "./pages/Feed";
+import Messages from "./pages/Messages";
+import Connections from "./pages/Connections";
+import ChatBox from "./pages/ChatBox";
+import CreatePost from "./pages/CreatePost";
+import Discover from "./pages/Discover";
+import Layout from "./pages/Layout";
+import Profile from "./pages/Profile";
 
+const App = () => {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <Toaster/>
+      {/* Public routes (only visible if not signed in) */}
+      <SignedOut>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </SignedOut>
 
-export default App
+      {/* Protected routes (only visible if signed in) */}
+      <SignedIn>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Feed />} />
+            <Route path="messages" element={<Messages />} />
+            <Route path="messages/:userId" element={<ChatBox />} />
+            <Route path="connections" element={<Connections />} />
+            <Route path="discover" element={<Discover />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="profile/:profileId" element={<Profile />} />
+            <Route path="create-post" element={<CreatePost />} />
+          </Route>
+        </Routes>
+      </SignedIn>
+    </>
+  );
+};
+
+export default App;
