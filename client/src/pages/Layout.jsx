@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useUser } from "@clerk/clerk-react";
-
+import Header from "../components/Header";
 import Sidebar from "../components/SideBar";
 import Loading from "../components/Loading";
 
 const Layout = () => {
   const { isLoaded, user } = useUser(); // Clerk hook
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSideBarOpen] = useState(false);
 
   // Block rendering until Clerk finishes loading
   if (!isLoaded) {
@@ -21,27 +21,19 @@ const Layout = () => {
   }
 
   return (
-    <div className="w-full flex h-screen relative">
+    <div className="w-full flex h-max relative">
       {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <Header sidebarOpen={sidebarOpen} setSideBarOpen={setSideBarOpen} />
+
+      <Sidebar sidebarOpen={sidebarOpen} setSideBarOpen={setSideBarOpen} />
 
       {/* Main content area */}
-      <div className="flex-1 bg-slate-50 overflow-y-auto">
+      <div
+        className={`flex-1 bg-slate-50 overflow-y-auto transition-all duration-300 
+  sm:ml-60 xl:ml-72`}
+      >
         <Outlet />
       </div>
-
-      {/* Mobile toggle button */}
-      {sidebarOpen ? (
-        <X
-          className="absolute top-3 right-3 p-2 bg-white rounded-md shadow w-10 h-10 text-gray-600 sm:hidden cursor-pointer z-50"
-          onClick={() => setSidebarOpen(false)}
-        />
-      ) : (
-        <Menu
-          className="absolute top-3 right-3 p-2 bg-white rounded-md shadow w-10 h-10 text-gray-600 sm:hidden cursor-pointer z-50"
-          onClick={() => setSidebarOpen(true)}
-        />
-      )}
     </div>
   );
 };

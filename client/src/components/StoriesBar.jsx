@@ -75,7 +75,6 @@ const StoriesBar = () => {
       {
         showModel && <StoryModel setShowModel={setShowModel} fetchStories={fetchStories}/> 
       }
-      // view story model
       {
         viewStory && <StoryViewer viewStory= {viewStory} setViewStory = {setViewStory}/>
       }

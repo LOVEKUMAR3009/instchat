@@ -25,6 +25,7 @@ const App = () => {
         </Routes>
       </SignedOut>
 
+      
       {/* Protected routes (only visible if signed in) */}
       <SignedIn>
         <Routes>
