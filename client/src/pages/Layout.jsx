@@ -30,9 +30,9 @@ const Layout = () => {
       {/* Main content area */}
       <div
         className={`flex-1 bg-slate-50 overflow-y-auto transition-all duration-300 
-  sm:ml-60 xl:ml-72`}
+  sm:ml-60 xl:ml-72 no-scrollbar`}
       >
-        <Outlet />
+        <Outlet  />
       </div>
     </div>
   );
