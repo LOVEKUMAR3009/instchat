@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route ,Navigate} from "react-router-dom";
 import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import {Toaster} from 'react-hot-toast'
 
@@ -21,10 +21,12 @@ const App = () => {
       {/* Public routes (only visible if not signed in) */}
       <SignedOut>
         <Routes>
+          {/* Redirect / to /login if signed out */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </SignedOut>
-
       
       {/* Protected routes (only visible if signed in) */}
       <SignedIn>
