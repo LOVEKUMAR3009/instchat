@@ -1,8 +1,23 @@
 import { Calendar, MapPin, PenBox, Verified } from "lucide-react";
 import moment from "moment";
 import React from "react";
+import { useEffect } from "react";
 
-const UserProfileInfo = ({ user, posts, profileId, setShowEdit }) => {
+const UserProfileInfo = ({ showEdit,user, posts, profileId, setShowEdit }) => {
+
+
+    useEffect(() => {
+      // disable scroll
+      if(showEdit){
+  
+        document.body.style.overflow = "hidden";
+      }
+  
+      // cleanup: restore scroll when modal unmounts
+      return () => {
+        document.body.style.overflow = "auto";
+      };
+    }, [showEdit]);
   return (
     <div className="relative py-4 px-6 md:px-8 bg-white">
       <div className="flex flex-col md:flex-row items-center gap-6">
@@ -34,7 +49,7 @@ const UserProfileInfo = ({ user, posts, profileId, setShowEdit }) => {
                 onClick={() => setShowEdit(true)}
                 className="flex items-center gap-2 hover:cursor-pointer border-2 border-gray-300 hover:bg-gray-50 px-4 py-2 rounded-lg font-medium transition-colors mt-4 md:mt-0"
               >
-                <PenBox className="size-4" />
+                <PenBox  className="size-4" />
                 Edit
               </button>
             )}

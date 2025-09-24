@@ -40,7 +40,7 @@ const StoriesBar = () => {
             <img
               src={story.user.profile_picture}
               alt=""
-              className="absolute size-8 top-3 left-3 z-10 rounded-full ring ring-gray-100 shadow"
+              className="absolute size-8 top-3 left-3 z-3 rounded-full ring ring-gray-100 shadow"
             />
 
             <p className="absolute top-18 left-3 text-white/60 text-sm truncate max-w-24">
@@ -73,10 +73,10 @@ const StoriesBar = () => {
       {/* Add story model */}
 
       {
-        showModel && <StoryModel setShowModel={setShowModel} fetchStories={fetchStories}/> 
+        showModel && <StoryModel showModel={showModel} setShowModel={setShowModel} fetchStories={fetchStories}/> 
       }
       {
-        viewStory && <StoryViewer viewStory= {viewStory} setViewStory = {setViewStory}/>
+        viewStory && <StoryViewer  viewStory= {viewStory} setViewStory = {setViewStory}/>
       }
     </div>
   );

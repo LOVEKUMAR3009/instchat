@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import {ArrowLeft, Sparkle, TextIcon, Upload} from 'lucide-react'
 import toast from 'react-hot-toast';
-const StoryModel = ({setShowModel,fetchStories}) => {
+const StoryModel = ({showModel,setShowModel,fetchStories}) => {
     const bgColors = [,"#4f46e5","#434f3e","#e4f4c6","#ad56cd","#abcd34","#a2345d","#ff3456"]
     const [mode,setMode] = useState("text");
     const [background,setBackground] = useState();
@@ -20,6 +20,20 @@ const StoryModel = ({setShowModel,fetchStories}) => {
     const handleCreateStory = async ()=> { 
 
     }
+
+
+      useEffect(() => {
+        // disable scroll
+        if(showModel){
+    
+          document.body.style.overflow = "hidden";
+        }
+    
+        // cleanup: restore scroll when modal unmounts
+        return () => {
+          document.body.style.overflow = "auto";
+        };
+      }, [showModel]);
   return (
     <div className='fixed inset-0 z-110 min-h-screen bg-black/80 backdrop-blur text-white flex items-center justify-center p-4'>
       <div className='w-full max-w-md'>
