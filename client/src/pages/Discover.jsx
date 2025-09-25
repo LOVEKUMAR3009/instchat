@@ -22,7 +22,7 @@ const Discover = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       <div className="max-w-6xl mx-auto p-6">
-        <div className="mt-10 sm:mt-0 mb-8 ">
+        <div >
           <h1 className="text-3xl font-bold text-slate-900 mb-2">Discover</h1>
           <p className="text-slate-600">Connect with amazing people and grow </p>
         </div>

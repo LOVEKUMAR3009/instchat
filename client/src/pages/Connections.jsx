@@ -23,16 +23,12 @@ const Connections = () => {
     { label: "Connection", value: connections, icon: UserPlus }
 
   ];
-
-  useEffect(()=>{
-    console.log(dataArray)
-  },[])
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="max-w-6xl mx-auto p-6">
 
         {/* title */}
-        <div className='mt-10 sm:mt-0 mb-8 '>
+        <div >
           <h1 className='text-3xl font-bold text-slate-900 mb-2'>Connections</h1>
           <p className='text-slate-600'>Manage your network and discover new connections</p>
         </div>
