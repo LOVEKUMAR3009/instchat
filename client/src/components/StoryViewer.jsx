@@ -20,13 +20,13 @@ const StoryViewer = ({ viewStory, setViewStory }) => {
       // close story
       timer = setTimeout(() => {
         setViewStory(null);
-      },duration+300);
+      }, duration + 300);
     }
     return () => {
       clearTimeout(timer);
       clearInterval(progressInterval);
     };
-  }, [viewStory,setViewStory]);
+  }, [viewStory, setViewStory]);
   const handleClose = () => {
     setViewStory(null);
   };
@@ -77,12 +77,17 @@ const StoryViewer = ({ viewStory, setViewStory }) => {
       }}
     >
       {/* progress bar */}
+      {
+        viewStory && viewStory.media_type !== "video" &&(
+
       <div className="absolute top-2 w-[96%] overflow-hidden rounded-sm h-1 bg-gray-700">
         <div
           className="h-full bg-white transition-all duration-100 linear"
           style={{ width: `${progress}%` }}
         ></div>
       </div>
+        )
+      }
 
       {/* User info */}
       <div className="absolute top-4 left-4 flex items-center space-x-3 p-2 px-4 sm:p-4 sm:px-8  backdrop-blur-2xl rounded bg-black/50">
