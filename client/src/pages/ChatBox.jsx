@@ -1,124 +1,3 @@
-// import React, { useState, useRef, useEffect } from "react";
-// import { dummyMessagesData, dummyUserData } from "../assets/assets";
-// import { ImageIcon, SendHorizonal } from "lucide-react";
-
-// const ChatBox = () => {
-//   const messages = dummyMessagesData;
-//   const [text, setText] = useState("");
-//   const [image, setImage] = useState(null);
-//   const [user, setUser] = useState(dummyUserData);
-//   const messagesEndRef = useRef(null);
-
-//   const sendMessage = async () => {};
-//   useEffect(() => {
-//     messagesEndRef.current?.scrollIntoView({ behaviour: "smooth" });
-//   }, []);
-//   return (
-//     user && (
-//       <div className="flex flex-col  h-screen ">
-//         {/* profile area  */}
-//         <div
-//           className={`
-//     fixed top-0 z-20 border-test flex items-center gap-2
-//     p-2 md:px-10 xl:pl-42
-//     bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-gray-300
-//     transition-all duration-300
-//     "sm:ml-60 xl:ml-72 sm:w-[calc(100%-15rem)] xl:w-[calc(100%-18rem)]" "w-full ml-0"}
-//   `}
-//         >
-//           <img
-//             src={user.profile_picture}
-//             alt=""
-//             className="size-8 rounded-full"
-//           />
-//           <div>
-//             <p className="font-medium">{user.full_name}</p>
-//             <p className="text-sm text-gray-500 -mt-1.5 ">@{user?.username}</p>
-//           </div>
-//         </div>
-
-//         {/* middle area  */}
-//         <div className="p-5 border border-blue-50 py-28 md:px-10 flex-1  overflow-y-auto no-scrollbar">
-//           <div className="space-y-4 max-w-4xl mx-auto">
-//             {messages
-//               .toSorted((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-//               .map((message, index) => (
-//                 <div
-//                   key={index}
-//                   className={`flex flex-col ${
-//                     message.to_user_id !== user._id
-//                       ? "items-start"
-//                       : "items-end"
-//                   }`}
-//                 >
-//                   <div
-//                     className={`p-2 max-md:w-[50%] text-sm max-w-sm bg-white text-slate-700 rounded-lg shadow ${
-//                       message.to_user_id !== user._id
-//                         ? "rounded-bl-none"
-//                         : "rounded-br-none"
-//                     }`}
-//                   >
-//                     {message.message_type === "image" && (
-//                       <img
-//                         src={message.media_url}
-//                         alt=""
-//                         className="w-full  max-w-sm rounded-lg mb-1"
-//                       />
-//                     )}
-//                     <p>{message?.text}</p>
-//                   </div>
-//                 </div>
-//               ))}
-//             <div ref={messagesEndRef} />
-//           </div>
-//         </div>
-
-//         {/* text area  */}
-//         <div
-//           className={`fixed bottom-0 z-20 flex items-center gap-2
-//     p-2 md:px-10 xl:pl-42
-//     bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-gray-300
-//     transition-all duration-300
-//     sm:ml-60 xl:ml-72 sm:w-[calc(100%-15rem)] xl:w-[calc(100%-18rem)] w-full ml-0`}
-//         >
-//           <div className="flex items-center gap-3 pl-5 p-1.5 w-full max-w-xl border border-black shadow rounded-full">
-//             <input
-//               type="text"
-//               className="flex-1 outline-none text-slate-700"
-//               placeholder="Type a message..."
-//               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-//               onChange={(e) => setText(e.target.value)}
-//               value={text}
-//             />
-//             <label htmlFor="image">
-//               {image ? (
-//                 <img src={URL.createObjectURL(image)} className="h-8 rounded" />
-//               ) : (
-//                 <ImageIcon className="size-7 text-gray-400" />
-//               )}
-//               <input
-//                 type="file"
-//                 id="image"
-//                 accept="image/*"
-//                 hidden
-//                 onChange={(e) => setImage(e.target.files[0])}
-//               />
-//             </label>
-//             <button
-//               onClick={sendMessage}
-//               className="bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-800 active:scale-95 cursor-pointer text-white p-2 rounded-full"
-//             >
-//               <SendHorizonal size={18} />
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     )
-//   );
-// };
-
-// export default ChatBox;
-
 import React, { useState, useRef, useEffect } from "react";
 import { dummyMessagesData, dummyUserData } from "../assets/assets";
 import { ImageIcon, SendHorizonal } from "lucide-react";
@@ -138,92 +17,94 @@ const ChatBox = ({ sidebarOpen }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  if (!user) return null;
-
   return (
-    <div className="flex flex-col h-screen">
-      {/* Profile area */}
-      <div className="fixed max-sm:top-11 w-full flex items-center gap-2 p-2 md:px-10 xl:pl-42 bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-gray-300 z-3">
-        <img src={user.profile_picture} alt="" className="size-8 rounded-full" />
-        <div>
-          <p className="font-medium">{user.full_name}</p>
-          <p className="text-sm text-gray-500 -mt-1.5">@{user.username}</p>
+    user && (
+      <div className="flex flex-col h-screen">
+        {/* Top user info bar */}
+        <div className="flex max-sm:top-12 fixed w-full items-center gap-2 p-2 md:px-10 xl:pl-42 bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-gray-300">
+          <img src={user.profile_picture} alt="" className="size-8 rounded-full" />
+          <div>
+            <p className="font-medium">{user.full_name}</p>
+            <p className="text-sm text-gray-500 -mt-1.5">@{user?.username}</p>
+          </div>
         </div>
-      </div>
 
-      {/* Messages area */}
-      <div className="flex-1 overflow-y-auto p-5 md:px-10 pt-28 pb-28 no-scrollbar">
-        <div className="space-y-4 max-w-4xl mx-auto">
-          {messages
-            .toSorted((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-            .map((message, index) => (
-              <div
-                key={index}
-                className={`flex flex-col ${
-                  message.to_user_id !== user._id ? "items-start" : "items-end"
-                }`}
-              >
+        {/* Messages area */}
+        <div className="flex-1 overflow-y-auto p-5 md:px-10 pt-28 pb-28 no-scrollbar">
+          <div className="space-y-4 max-w-4xl mx-auto">
+            {messages
+              .toSorted((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+              .map((message, index) => (
                 <div
-                  className={`p-2 max-md:w-[50%] text-sm max-w-sm bg-white text-slate-700 rounded-lg shadow ${
-                    message.to_user_id !== user._id ? "rounded-bl-none" : "rounded-br-none"
+                  key={index}
+                  className={`flex flex-col ${
+                    message.to_user_id !== user._id ? "items-start" : "items-end"
                   }`}
                 >
-                  {message.message_type === "image" && (
-                    <img
-                      src={message.media_url}
-                      alt=""
-                      className="w-full max-w-sm rounded-lg mb-1"
-                    />
-                  )}
-                  <p>{message?.text}</p>
+                  <div
+                    className={`p-2 max-md:w-[50%] text-sm max-w-sm bg-white text-slate-700 rounded-lg shadow ${
+                      message.to_user_id !== user._id
+                        ? "rounded-bl-none"
+                        : "rounded-br-none"
+                    }`}
+                  >
+                    {message.message_type === "image" && (
+                      <img
+                        src={message.media_url}
+                        alt=""
+                        className="w-full max-w-sm rounded-lg mb-1"
+                      />
+                    )}
+                    <p>{message?.text}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          <div ref={messagesEndRef} />
+              ))}
+            <div ref={messagesEndRef} />
+          </div>
         </div>
-      </div>
 
-      {/* Fixed bottom input area */}
-      <div
-        className={`
-           bottom-0 z-50 flex justify-center items-center bg-white w-full transition-all duration-300
-          ${sidebarOpen ? "sm:ml-5 xl:ml-10" : "ml-0"}
-        `}
-      >
-        <div className="flex items-center w-full max-w-xl border border-black rounded-full p-1.5 shadow">
-          <input
-            type="text"
-            className="flex-1 outline-none text-slate-700"
-            placeholder="Type a message..."
-            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-            onChange={(e) => setText(e.target.value)}
-            value={text}
-          />
-
-          <label htmlFor="image" className="cursor-pointer">
-            {image ? (
-              <img src={URL.createObjectURL(image)} className="h-8 rounded" />
-            ) : (
-              <ImageIcon className="size-7 text-gray-400" />
-            )}
+        {/* Fixed bottom input area */}
+        <div
+          className={`
+            bottom-0 z-50 flex justify-center items-center bg-white w-full transition-all duration-300
+            ${sidebarOpen ? "sm:ml-5 xl:ml-10" : "ml-0"}
+          `}
+        >
+          <div className="flex items-center w-full max-w-xl border border-black rounded-full p-1.5 shadow">
             <input
-              type="file"
-              id="image"
-              accept="image/*"
-              hidden
-              onChange={(e) => setImage(e.target.files[0])}
+              type="text"
+              className="flex-1 outline-none text-slate-700"
+              placeholder="Type a message..."
+              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+              onChange={(e) => setText(e.target.value)}
+              value={text}
             />
-          </label>
 
-          <button
-            onClick={sendMessage}
-            className="bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-800 active:scale-95 cursor-pointer text-white p-2 rounded-full"
-          >
-            <SendHorizonal size={18} />
-          </button>
+            <label htmlFor="image" className="cursor-pointer">
+              {image ? (
+                <img src={URL.createObjectURL(image)} className="h-8 rounded" />
+              ) : (
+                <ImageIcon className="size-7 text-gray-400" />
+              )}
+              <input
+                type="file"
+                id="image"
+                accept="image/*"
+                hidden
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+            </label>
+
+            <button
+              onClick={sendMessage}
+              className="bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-800 active:scale-95 cursor-pointer text-white p-2 rounded-full"
+            >
+              <SendHorizonal size={18} />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 

@@ -2,7 +2,7 @@ import React from 'react'
 import {Menu} from 'lucide-react'
 const Header = ({sideBarOpen,setSideBarOpen}) => {
   return (
-    <div className={`sm:hidden flex fixed top-0  bg-white w-full h-max  z-5 px-6 py-3 items-center justify-between`}>
+    <div className={`sm:hidden flex fixed top-0 sm:top-12  bg-white w-full h-max  z-5 px-6 py-3 items-center justify-between`}>
      
       <div>
           <Menu
