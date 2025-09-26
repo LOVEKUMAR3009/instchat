@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useUser } from "@clerk/clerk-react";
@@ -21,7 +21,7 @@ const Layout = () => {
   }
 
   return (
-    <div className="w-full   flex h-screen overflow-hidden ">
+    <div className="w-full flex h-max relative">
       {/* Sidebar */}
       <Header sidebarOpen={sidebarOpen} setSideBarOpen={setSideBarOpen} />
 
@@ -29,19 +29,13 @@ const Layout = () => {
 
       {/* Main content area */}
       <div
-        className={`flex-1 bg-slate-50 overflow-y-auto transition-all duration-300 
-  sm:ml-60 xl:ml-72 mt-11 sm:mt-0 mb-8  no-scrollbar`}
+        className={`flex-1  bg-slate-50 overflow-y-auto transition-all duration-300 
+  sm:ml-60 xl:ml-72 no-scrollbar`}
       >
-        <Outlet sidebarOpen={sidebarOpen}/>
-      </div>  
+        <Outlet  />
+      </div>
     </div>
   );
 };
 
 export default Layout;
-
-
-
-
-
-

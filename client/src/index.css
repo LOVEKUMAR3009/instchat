@@ -13,10 +13,4 @@
   -ms-overflow-style: none;  /* IE & Edge */
   scrollbar-width: none;     /* Firefox */
 }
-.border-test{
-  border: 2px solid black;
-}
 
-::-webkit-scrollbar {
-        display: none;
-      }
