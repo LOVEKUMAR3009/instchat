@@ -50,7 +50,8 @@ const syncUserUpdation = inngest.createFunction(
             profile_picture:image_url,
         }
 
-        await User.findById(id,updateUserData);
+        await User.findByIdAndUpdate(id, updateUserData, { new: true });
+
     }
 )
 
@@ -72,6 +73,6 @@ const syncUserDeletion = inngest.createFunction(
 // Create an empty array where we'll export future Inngest functions
 export const functions = [
     syncUserCreation,
-    syncUserCreation,
+    syncUserUpdation,
     syncUserDeletion
 ];
