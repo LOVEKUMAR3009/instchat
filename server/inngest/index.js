@@ -37,23 +37,35 @@ const syncUserCreation = inngest.createFunction(
 
 
 const syncUserUpdation = inngest.createFunction(
-    {id:'update-user-from-clerk'},
-    {event:'user.updated'},
-    async({event})=>{
-        const {id,first_name,last_name,email_addresses, image_url} = event.data;
-        let username = email_addresses[0].email_addresses.split('@')[0];
+  { id: "update-user-from-clerk" },
+  { event: "user.updated" },   // Clerk event name
+  async ({ event }) => {
+    try {
+      const { id, first_name, last_name, email_addresses, image_url } = event.data;
 
-        // check availblity of username
-        const updateUserData = {
-            email:email_addresses[0].email_addresses,
-            full_name:first_name+" "+last_name,
-            profile_picture:image_url,
-        }
+      const updateUserData = {
+        email: email_addresses[0].email_address,
+        full_name: `${first_name} ${last_name}`,
+        profile_picture: image_url,
+      };
 
-        await User.findByIdAndUpdate(id, updateUserData, { new: true });
+      const updated = await User.findOneAndUpdate(
+        { _id: id },
+        updateUserData,
+        { new: true }
+      );
 
+      if (!updated) {
+        console.log("⚠️ No user found with id:", id);
+      } else {
+        console.log("✅ User updated:", updated);
+      }
+    } catch (err) {
+      console.error("❌ Error in user update:", err);
     }
-)
+  }
+);
+
 
 // Inngest function to delete data from database
 
