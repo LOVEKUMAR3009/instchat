@@ -6,32 +6,61 @@ export const inngest = new Inngest({ id: "pingup-app" });
 
 // Ingest function to save user data in database 
 
+// const syncUserCreation = inngest.createFunction(
+//     {id:'sync-user-from-clerk'},
+//     {event:'user.created'},
+//     async({event})=>{
+//         const {id,first_name,last_name,email_addresses, image_url} = event.data;
+//         let username = email_addresses[0].email_address.split('@')[0];
+
+//         // check availblity of username
+
+//         const user = await User.findOne({username});
+//         if(user){
+//             username = username+Math.floor(Math.random()*1000);
+//         }
+
+//         const userData = {
+//             _id :id,
+//             email:email_addresses[0].email_addresses,
+//             full_name:first_name+" "+last_name,
+//             profile_picture:image_url,
+//             username
+//         }
+
+//         await User.create(userData);
+//     }
+// )
+
+
+
 const syncUserCreation = inngest.createFunction(
-    {id:'sync-user-from-clerk'},
-    {event:'user.created'},
-    async({event})=>{
-        const {id,first_name,last_name,email_addresses, image_url} = event.data;
-        let username = email_addresses[0].email_address.split('@')[0];
+  { id: "sync-user-from-clerk" },
+  { event: "user.created" },
+  async ({ event }) => {
+    const { id, first_name, last_name, email_addresses, image_url } = event.data;
 
-        // check availblity of username
+    // create username from first email
+    let username = email_addresses[0].email_address.split("@")[0];
 
-        const user = await User.findOne({username});
-        if(user){
-            username = username+Math.floor(Math.random()*1000);
-        }
-
-        const userData = {
-            _id :id,
-            email:email_addresses[0].email_addresses,
-            full_name:first_name+" "+last_name,
-            profile_picture:image_url,
-            username
-        }
-
-        await User.create(userData);
+    // check availability of username
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      username = username + Math.floor(Math.random() * 1000);
     }
-)
 
+    const userData = {
+      _id: id, // make sure your schema uses type: String for _id
+      email: email_addresses[0].email_address, // ✅ fixed field
+      full_name: `${first_name} ${last_name}`,
+      profile_picture: image_url,
+      username,
+    };
+
+    await User.create(userData);
+    console.log("✅ User created:", userData);
+  }
+);
 
 // Inngest function to update data in database
 
