@@ -1,6 +1,8 @@
 import React from 'react'
-import {Menu} from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import {Menu, User2, User2Icon} from 'lucide-react'
 const Header = ({sideBarOpen,setSideBarOpen}) => {
+  const navigate = useNavigate();
   return (
     <div className={`sm:hidden flex fixed top-0 sm:top-12  bg-white w-full h-max  z-5 px-6 py-3 items-center justify-between`}>
      
@@ -11,7 +13,7 @@ const Header = ({sideBarOpen,setSideBarOpen}) => {
         />
       </div>
        <div>
-        ping up 
+        <User2 onClick={()=>navigate('/profile')}/>
       </div>
     </div>
   )

@@ -90,7 +90,7 @@ const StoryViewer = ({ viewStory, setViewStory }) => {
       }
 
       {/* User info */}
-      <div className="absolute top-4 left-4 flex items-center space-x-3 p-2 px-4 sm:p-4 sm:px-8  backdrop-blur-2xl rounded bg-black/50">
+      <div className="absolute top-4 left-4 flex items-center space-x-3 p-2 px-4 sm:p-4 sm:px-8   rounded 50 ">
         <img
           src={viewStory.user?.profile_picture}
           alt=""
@@ -98,7 +98,7 @@ const StoryViewer = ({ viewStory, setViewStory }) => {
         />
         <div className="text-white font-medium flex items-center gap-1.5">
           <span>{viewStory.user?.full_name}</span>
-          <BadgeCheck size={18} />
+          <BadgeCheck size={18} className="text-blue-500" />
         </div>
       </div>
 

@@ -16,7 +16,7 @@ const ChatBox = () => {
     messagesEndRef.current?.scrollIntoView({behaviour:"smooth"})
   },[])
   return user && (
-    <div className='flex flex-col h-screen'>
+    <div className='flex flex-col h-screen '>
       <div  className='flex max-sm:top-12 fixed w-full items-center gap-2 p-2 md:px-10 xl:pl-42 bg-gradient-to-r from-indigo-50 to-purple-50 border-b border-gray-300'>
           <img src={user.profile_picture} alt="" className='size-8 rounded-full' />
           <div >
@@ -24,7 +24,7 @@ const ChatBox = () => {
             <p className='text-sm text-gray-500 -mt-1.5 '>@{user?.username}</p>
           </div>
       </div>
-       <div className='p-5 md:px-10 pt-15 h-full overflow-y-scroll'>
+       <div className='p-5 md:px-10 pt-15 max-sm:mt-7  h-full overflow-y-scroll no-scrollbar '>
               <div className='space-y-4 max-w-4xl mx-auto'>
                 {
                   messages.toSorted((a,b) => new Date(a.createdAt)-new Date(b.createdAt)).map((message,index)=>(
@@ -47,9 +47,9 @@ const ChatBox = () => {
 
 
              {/* text area  */}
-          <div className='px-4 '>
-              <div className='flex items-center gap-3 pl-5 p-1.5 bg-white w-full max-w-xl mx-auto border border-gray-200 shadow rounded-full mb-5'>
-                <input type="text" className='flex-1 outline-none text-slate-700 ' placeholder='Type a message...' onKeyDown={e=> e.key==="Enter" && sendMessage()} onChange={(e)=>setText(e.target.value)} value={text}/>
+          <div className='px-4 w-full '>
+              <div className='flex items-center gap-3  p-1.5 bg-white w-full max-w-xl mx-auto border border-gray-200 shadow rounded-full mb-5'>
+                <input type="text" className='flex-1 min-w-0 outline-none text-slate-700 ' placeholder='Type a message...' onKeyDown={e=> e.key==="Enter" && sendMessage()} onChange={(e)=>setText(e.target.value)} value={text}/>
 
                 <label htmlFor="image">
                   {image ?
